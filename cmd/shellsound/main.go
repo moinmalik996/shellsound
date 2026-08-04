@@ -1,4 +1,4 @@
-// Command fahh_alert is invoked by a zsh precmd hook after every command,
+// Command shellsound is invoked by a zsh precmd hook after every command,
 // and plays a sound when the previous command's exit code was non-zero.
 package main
 
@@ -7,19 +7,19 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/moinabbas/fahh_alert/internal/audio"
-	"github.com/moinabbas/fahh_alert/internal/config"
+	"github.com/moinabbas/shellsound/internal/audio"
+	"github.com/moinabbas/shellsound/internal/config"
 )
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Fprintln(os.Stderr, "usage: fahh_alert <exit_code>")
+		fmt.Fprintln(os.Stderr, "usage: shellsound <exit_code>")
 		os.Exit(1)
 	}
 
 	exitCode, err := strconv.Atoi(os.Args[1])
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "fahh_alert: invalid exit code %q\n", os.Args[1])
+		fmt.Fprintf(os.Stderr, "shellsound: invalid exit code %q\n", os.Args[1])
 		os.Exit(1)
 	}
 

@@ -1,3 +1,3 @@
-module github.com/moinabbas/fahh_alert
+module github.com/moinabbas/shellsound
 
 go 1.26.5

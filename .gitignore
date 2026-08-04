@@ -35,5 +35,6 @@ go.work.sum
 .DS_Store
 
 # Local build output
-/fahh_alert
+/shellsound
 /dist/
+/.gocache/

@@ -24,18 +24,18 @@ jobs:
         run: go test ./...
 
       - name: Build arm64 binary
-        run: GOOS=darwin GOARCH=arm64 go build -o dist/fahh_alert-arm64 ./cmd/fahh_alert
+        run: GOOS=darwin GOARCH=arm64 go build -o dist/shellsound-arm64 ./cmd/shellsound
 
       - name: Build amd64 binary
-        run: GOOS=darwin GOARCH=amd64 go build -o dist/fahh_alert-amd64 ./cmd/fahh_alert
+        run: GOOS=darwin GOARCH=amd64 go build -o dist/shellsound-amd64 ./cmd/shellsound
 
       - name: Create universal binary
-        run: lipo -create -output dist/fahh_alert-darwin-universal dist/fahh_alert-arm64 dist/fahh_alert-amd64
+        run: lipo -create -output dist/shellsound-darwin-universal dist/shellsound-arm64 dist/shellsound-amd64
 
       - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "${{ github.ref_name }}" dist/fahh_alert-darwin-universal \
+          gh release create "${{ github.ref_name }}" dist/shellsound-darwin-universal \
             --title "${{ github.ref_name }}" \
             --generate-notes

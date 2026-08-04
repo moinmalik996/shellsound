@@ -3,7 +3,7 @@ package main
 import (
 	"testing"
 
-	"github.com/moinabbas/fahh_alert/internal/config"
+	"github.com/moinabbas/shellsound/internal/config"
 )
 
 func TestSoundToPlay(t *testing.T) {

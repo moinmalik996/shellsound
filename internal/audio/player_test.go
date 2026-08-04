@@ -31,12 +31,12 @@ func TestPlay_InvokesAfplayWithPath(t *testing.T) {
 		return nil
 	}
 
-	Play("/tmp/fahhh.mp3")
+	Play("/tmp/shellsound.mp3")
 
 	if gotName != "afplay" {
 		t.Errorf("player command = %q, want %q", gotName, "afplay")
 	}
-	if len(gotArgs) != 1 || gotArgs[0] != "/tmp/fahhh.mp3" {
-		t.Errorf("player args = %v, want [%q]", gotArgs, "/tmp/fahhh.mp3")
+	if len(gotArgs) != 1 || gotArgs[0] != "/tmp/shellsound.mp3" {
+		t.Errorf("player args = %v, want [%q]", gotArgs, "/tmp/shellsound.mp3")
 	}
 }

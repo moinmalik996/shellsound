@@ -67,11 +67,11 @@ func TestLoad_InvalidJSONFallsBackToDefault(t *testing.T) {
 	}
 }
 
-func TestDir_UsesHomeDotFahhAlert(t *testing.T) {
+func TestDir_UsesHomeDotShellsound(t *testing.T) {
 	home := t.TempDir()
 	t.Setenv("HOME", home)
 
-	want := filepath.Join(home, ".fahh_alert")
+	want := filepath.Join(home, ".shellsound")
 	if got := dir(); got != want {
 		t.Errorf("dir() = %q, want %q", got, want)
 	}

@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/moinabbas/fahh_alert/internal/assets"
+	"github.com/moinabbas/shellsound/internal/assets"
 )
 
 // Config controls which sounds play and when.
@@ -28,9 +28,9 @@ func defaultConfig() Config {
 func dir() string {
 	home, err := os.UserHomeDir()
 	if err != nil {
-		return ".fahh_alert"
+		return ".shellsound"
 	}
-	return filepath.Join(home, ".fahh_alert")
+	return filepath.Join(home, ".shellsound")
 }
 
 func path() string {
@@ -40,7 +40,7 @@ func path() string {
 // bundledFailureSoundPath returns where the sound embedded in the binary
 // gets extracted to on disk, since afplay needs a real file path to play.
 func bundledFailureSoundPath() string {
-	return filepath.Join(dir(), "sounds", "fahhh.mp3")
+	return filepath.Join(dir(), "sounds", "shellsound.mp3")
 }
 
 // extractBundledSound writes the embedded sound to disk if it isn't there

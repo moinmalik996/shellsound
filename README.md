@@ -1,4 +1,4 @@
-# fahh_alert
+# shellsound
 
 A tiny Go tool that plays a sound after every command you run in your terminal —
 one sound when a command fails, another when it succeeds. No wrapper commands,
@@ -8,7 +8,7 @@ command in every new terminal tab.
 ```
 $ python45.43
 zsh: command not found: python45.43
-🔊 fahhh.mp3
+🔊 shellsound.mp3
 
 $ ls
 🔊 Glass.aiff (system sound)
@@ -26,10 +26,10 @@ You run a command
 zsh's `precmd` hook fires after the command finishes
         │
         ▼
-The hook calls the fahh_alert binary with the command's exit code
+The hook calls the shellsound binary with the command's exit code
         │
         ▼
-fahh_alert reads ~/.fahh_alert/config.json
+shellsound reads ~/.shellsound/config.json
         │
         ▼
 exit code == 0  → play the configured "success" sound (if enabled)
@@ -43,11 +43,11 @@ Zsh calls the binary through a hook function added to `~/.zshrc`
 (see [Installation](#installation) below):
 
 ```sh
-fahh_alert_precmd() {
+shellsound_precmd() {
     local exit_code=$?
-    "$HOME/.fahh_alert/bin/fahh_alert" "$exit_code"
+    "$HOME/.shellsound/bin/shellsound" "$exit_code"
 }
-add-zsh-hook precmd fahh_alert_precmd
+add-zsh-hook precmd shellsound_precmd
 ```
 
 Detection is purely by **exit code** — not by scanning output text — so it
@@ -57,11 +57,11 @@ works identically for every command: shell builtins, Go/Python/Node programs,
 ## Project layout
 
 ```
-fahh_alert/
-  cmd/fahh_alert/main.go        entry point: reads exit code, decides which sound to play
+shellsound/
+  cmd/shellsound/main.go        entry point: reads exit code, decides which sound to play
   internal/audio/player.go      plays a sound file via afplay
-  internal/config/config.go     loads/creates ~/.fahh_alert/config.json
-  internal/assets/assets.go     embeds sounds/fahhh.mp3 directly into the binary
+  internal/config/config.go     loads/creates ~/.shellsound/config.json
+  internal/assets/assets.go     embeds sounds/shellsound.mp3 directly into the binary
   internal/assets/sounds/       the default failure sound, versioned in the repo
   scripts/install.sh            public installer: downloads the release binary, wires the zsh hook
   scripts/dev-install.sh        dev installer: builds from source instead of downloading
@@ -78,22 +78,22 @@ fahh_alert/
 ## Installation
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/moinmalik996/fahh_alert/main/scripts/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/moinabbas/shellsound/main/scripts/install.sh | sh
 ```
 
 Or clone the repo and run it locally:
 
 ```bash
-git clone https://github.com/moinmalik996/fahh_alert.git
-cd fahh_alert
+git clone https://github.com/moinabbas/shellsound.git
+cd shellsound
 ./scripts/install.sh
 ```
 
 The script:
 
 1. Downloads the latest precompiled universal binary (arm64 + Intel) from
-   [GitHub Releases](https://github.com/moinmalik996/fahh_alert/releases).
-2. Installs it to `~/.fahh_alert/bin/fahh_alert` (no `sudo` needed — it
+   [GitHub Releases](https://github.com/moinabbas/shellsound/releases).
+2. Installs it to `~/.shellsound/bin/shellsound` (no `sudo` needed — it
    lives entirely under your home directory).
 3. Appends a marked block to `~/.zshrc` that registers the `precmd` hook.
 
@@ -111,28 +111,28 @@ ls               # succeeds → plays the success sound
 Delete the block between these two lines in `~/.zshrc`:
 
 ```
-# >>> fahh_alert hook >>>
+# >>> shellsound hook >>>
 ...
-# <<< fahh_alert hook <<<
+# <<< shellsound hook <<<
 ```
 
-Then optionally remove `~/.fahh_alert/` (binary + config).
+Then optionally remove `~/.shellsound/` (binary + config).
 
 ## Configuration
 
-On first run, `fahh_alert` creates `~/.fahh_alert/config.json` with these
+On first run, `shellsound` creates `~/.shellsound/config.json` with these
 defaults:
 
 ```json
 {
-  "failureSound": "/Users/you/.fahh_alert/sounds/fahhh.mp3",
+  "failureSound": "/Users/you/.shellsound/sounds/shellsound.mp3",
   "successSound": "/System/Library/Sounds/Glass.aiff",
   "playOnFailure": true,
   "playOnSuccess": true
 }
 ```
 
-`failureSound` points at a copy of `fahhh.mp3` extracted from inside the
+`failureSound` points at a copy of `shellsound.mp3` extracted from inside the
 binary itself on first run — the binary carries this file embedded, so it
 works the same on any Mac, with nothing to download separately.
 
@@ -185,8 +185,8 @@ source instead of downloading:
 ./scripts/dev-install.sh
 ```
 
-This builds `fahh_alert` from source and installs it to the same
-`~/.fahh_alert/bin/fahh_alert` location the public installer uses, so you
+This builds `shellsound` from source and installs it to the same
+`~/.shellsound/bin/shellsound` location the public installer uses, so you
 can iterate without waiting for a tagged release.
 
 ### Cutting a release
