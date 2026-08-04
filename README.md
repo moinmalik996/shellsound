@@ -81,12 +81,24 @@ shellsound/
 curl -fsSL https://raw.githubusercontent.com/moinabbas/shellsound/main/scripts/install.sh | sh
 ```
 
+Install an exact release tag instead of latest:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/moinabbas/shellsound/main/scripts/install.sh | SHELLSOUND_VERSION=v0.1.0 sh
+```
+
 Or clone the repo and run it locally:
 
 ```bash
 git clone https://github.com/moinabbas/shellsound.git
 cd shellsound
 ./scripts/install.sh
+```
+
+With an exact release tag when running locally:
+
+```bash
+SHELLSOUND_VERSION=v0.1.0 ./scripts/install.sh
 ```
 
 The script:

@@ -8,20 +8,33 @@ BIN_NAME="shellsound"
 ASSET="shellsound-darwin-universal"
 INSTALL_DIR="$HOME/.shellsound/bin"
 ZSHRC="$HOME/.zshrc"
+VERSION="${SHELLSOUND_VERSION:-latest}"
+PINNED_VERSION="${SHELLSOUND_VERSION:-}"
 
 if [ "$(uname -s)" != "Darwin" ]; then
   echo "shellsound currently only supports macOS." >&2
   exit 1
 fi
 
-echo "Downloading latest ${BIN_NAME} release..."
+echo "Downloading ${BIN_NAME} release (${VERSION})..."
 mkdir -p "$INSTALL_DIR"
-DOWNLOAD_URL="https://github.com/${REPO}/releases/latest/download/${ASSET}"
+if [ "$VERSION" = "latest" ]; then
+  DOWNLOAD_URL="https://github.com/${REPO}/releases/latest/download/${ASSET}"
+else
+  DOWNLOAD_URL="https://github.com/${REPO}/releases/download/${VERSION}/${ASSET}"
+fi
 
 if curl -fsSL "$DOWNLOAD_URL" -o "$INSTALL_DIR/$BIN_NAME"; then
   chmod +x "$INSTALL_DIR/$BIN_NAME"
 else
   echo "No release asset found at ${DOWNLOAD_URL}." >&2
+
+  if [ -n "$PINNED_VERSION" ]; then
+    echo "Pinned version ${PINNED_VERSION} was requested; aborting." >&2
+    echo "Make sure the tag exists and the release asset is published." >&2
+    exit 1
+  fi
+
   echo "Falling back to local source build (requires Go)." >&2
 
   if ! command -v go >/dev/null 2>&1; then
