@@ -26,6 +26,10 @@ else
 $MARKER_START
 autoload -Uz add-zsh-hook
 
+shellsound() {
+  "$INSTALL_DIR/$BIN_NAME" "$@"
+}
+
 shellsound_precmd() {
     local exit_code=\$?
     "$INSTALL_DIR/$BIN_NAME" "\$exit_code"

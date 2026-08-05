@@ -54,3 +54,22 @@ func TestSoundToPlay(t *testing.T) {
 		})
 	}
 }
+
+func TestRemoveDelimitedBlock(t *testing.T) {
+	t.Run("removes block when markers exist", func(t *testing.T) {
+		input := "line1\n# >>> shellsound hook >>>\na\nb\n# <<< shellsound hook <<<\nline2\n"
+		got := removeDelimitedBlock(input, hookStart, hookEnd)
+		want := "line1\nline2\n"
+		if got != want {
+			t.Errorf("removeDelimitedBlock() = %q, want %q", got, want)
+		}
+	})
+
+	t.Run("no-op when markers missing", func(t *testing.T) {
+		input := "line1\nline2\n"
+		got := removeDelimitedBlock(input, hookStart, hookEnd)
+		if got != input {
+			t.Errorf("removeDelimitedBlock() should not modify content without markers")
+		}
+	})
+}

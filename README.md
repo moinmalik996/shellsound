@@ -43,6 +43,10 @@ Zsh calls the binary through a hook function added to `~/.zshrc`
 (see [Installation](#installation) below):
 
 ```sh
+shellsound() {
+        "$HOME/.shellsound/bin/shellsound" "$@"
+}
+
 shellsound_precmd() {
     local exit_code=$?
     "$HOME/.shellsound/bin/shellsound" "$exit_code"
@@ -119,6 +123,29 @@ ls               # succeeds → plays the success sound
 ```
 
 ### Uninstalling
+
+From any installed zsh session, run:
+
+```bash
+shellsound uninstall
+```
+
+Or from the repository, run:
+
+```bash
+./scripts/uninstall.sh
+```
+
+This removes the `shellsound` hook block from `~/.zshrc` and deletes
+`~/.shellsound/`.
+
+Then reload your shell:
+
+```bash
+exec zsh
+```
+
+Manual alternative (if you don't want to use the script):
 
 Delete the block between these two lines in `~/.zshrc`:
 
