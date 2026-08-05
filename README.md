@@ -7,10 +7,10 @@ A tiny terminal companion that plays a sound after each command:
 ```
 $ python45.43
 zsh: command not found: python45.43
-🔊 shellsound.mp3
+🔊 error.mp3
 
 $ ls
-🔊 Glass.aiff (system sound)
+🔊 normal.wav
 ```
 
 ## Platform
@@ -61,8 +61,8 @@ defaults:
 
 ```json
 {
-  "failureSound": "/Users/you/.shellsound/sounds/shellsound.mp3",
-  "successSound": "/System/Library/Sounds/Glass.aiff",
+  "failureSound": "/Users/you/.shellsound/sounds/error.mp3",
+  "successSound": "/Users/you/.shellsound/sounds/normal.wav",
   "playOnFailure": true,
   "playOnSuccess": true
 }
