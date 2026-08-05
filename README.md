@@ -82,19 +82,19 @@ shellsound/
 ## Installation
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/moinabbas/shellsound/main/scripts/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/moinmalik996/shellsound/main/scripts/install.sh | sh
 ```
 
 Install an exact release tag instead of latest:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/moinabbas/shellsound/main/scripts/install.sh | SHELLSOUND_VERSION=v0.1.0 sh
+curl -fsSL https://raw.githubusercontent.com/moinmalik996/shellsound/main/scripts/install.sh | SHELLSOUND_VERSION=v0.1.0 sh
 ```
 
 Or clone the repo and run it locally:
 
 ```bash
-git clone https://github.com/moinabbas/shellsound.git
+git clone https://github.com/moinmalik996/shellsound.git
 cd shellsound
 ./scripts/install.sh
 ```
@@ -108,7 +108,7 @@ SHELLSOUND_VERSION=v0.1.0 ./scripts/install.sh
 The script:
 
 1. Downloads the latest precompiled universal binary (arm64 + Intel) from
-   [GitHub Releases](https://github.com/moinabbas/shellsound/releases).
+        [GitHub Releases](https://github.com/moinmalik996/shellsound/releases).
 2. Installs it to `~/.shellsound/bin/shellsound` (no `sudo` needed — it
    lives entirely under your home directory).
 3. Appends a marked block to `~/.zshrc` that registers the `precmd` hook.

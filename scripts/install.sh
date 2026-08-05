@@ -3,7 +3,7 @@
 # No Go toolchain required — see dev-install.sh if you're building from source.
 set -euo pipefail
 
-REPO="moinabbas/shellsound"
+REPO="${SHELLSOUND_REPO:-moinmalik996/shellsound}"
 BIN_NAME="shellsound"
 ASSET="shellsound-darwin-universal"
 INSTALL_DIR="$HOME/.shellsound/bin"
