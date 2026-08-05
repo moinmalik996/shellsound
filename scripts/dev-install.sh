@@ -27,7 +27,7 @@ $MARKER_START
 autoload -Uz add-zsh-hook
 
 shellsound() {
-  "$INSTALL_DIR/$BIN_NAME" "$@"
+  "$INSTALL_DIR/$BIN_NAME" "\$@"
 }
 
 shellsound_precmd() {
