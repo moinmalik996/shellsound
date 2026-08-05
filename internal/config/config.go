@@ -19,7 +19,7 @@ type Config struct {
 func defaultConfig() Config {
 	return Config{
 		FailureSound:  bundledFailureSoundPath(),
-		SuccessSound:  "/System/Library/Sounds/Glass.aiff",
+		SuccessSound:  bundledSuccessSoundPath(),
 		PlayOnFailure: true,
 		PlayOnSuccess: true,
 	}
@@ -40,22 +40,35 @@ func path() string {
 // bundledFailureSoundPath returns where the sound embedded in the binary
 // gets extracted to on disk, since afplay needs a real file path to play.
 func bundledFailureSoundPath() string {
-	return filepath.Join(dir(), "sounds", "shellsound.mp3")
+	return filepath.Join(dir(), "sounds", "error.mp3")
 }
 
-// extractBundledSound writes the embedded sound to disk if it isn't there
+func bundledSuccessSoundPath() string {
+	return filepath.Join(dir(), "sounds", "normal.wav")
+}
+
+// extractBundledSound writes the embedded sounds to disk if they aren't there
 // yet, so the binary works standalone on a machine that never built it.
 func extractBundledSound() error {
-	path := bundledFailureSoundPath()
-	if _, err := os.Stat(path); err == nil {
-		return nil
-	}
-
-	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+	if err := os.MkdirAll(filepath.Join(dir(), "sounds"), 0o755); err != nil {
 		return err
 	}
 
-	return os.WriteFile(path, assets.FailureSound, 0o644)
+	files := map[string][]byte{
+		bundledFailureSoundPath(): assets.FailureSound,
+		bundledSuccessSoundPath(): assets.SuccessSound,
+	}
+
+	for path, data := range files {
+		if _, err := os.Stat(path); err == nil {
+			continue
+		}
+		if err := os.WriteFile(path, data, 0o644); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // Load reads the config file, writing out the defaults on first run.

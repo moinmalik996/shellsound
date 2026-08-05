@@ -6,5 +6,10 @@ import _ "embed"
 
 // FailureSound is the default sound played when a command fails.
 //
-//go:embed sounds/shellsound.mp3
+//go:embed sounds/error.mp3
 var FailureSound []byte
+
+// SuccessSound is the default sound played when a command succeeds.
+//
+//go:embed sounds/normal.wav
+var SuccessSound []byte

@@ -67,6 +67,24 @@ func TestLoad_InvalidJSONFallsBackToDefault(t *testing.T) {
 	}
 }
 
+func TestDefaultConfig_UsesBundledSuccessSound(t *testing.T) {
+	t.Setenv("HOME", t.TempDir())
+
+	cfg := defaultConfig()
+	if cfg.SuccessSound != bundledSuccessSoundPath() {
+		t.Errorf("SuccessSound = %q, want %q", cfg.SuccessSound, bundledSuccessSoundPath())
+	}
+}
+
+func TestBundledFailureSoundPath_UsesErrorAsset(t *testing.T) {
+	t.Setenv("HOME", t.TempDir())
+
+	want := filepath.Join(dir(), "sounds", "error.mp3")
+	if got := bundledFailureSoundPath(); got != want {
+		t.Errorf("bundledFailureSoundPath() = %q, want %q", got, want)
+	}
+}
+
 func TestDir_UsesHomeDotShellsound(t *testing.T) {
 	home := t.TempDir()
 	t.Setenv("HOME", home)
